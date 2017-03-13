@@ -10,20 +10,26 @@
 *    you'll need to define a constant in that file.
 *************************************************************/
 
-import { call, put } from 'redux-saga/effects'
+import { call, put,select } from 'redux-saga/effects'
 import ProfileActions from '../Redux/ProfileRedux'
+import { getToken } from '../Redux/LoginRedux'
 
-export function * getProfile (api, action) {
-  const { data } = action
+export function * getProfile (action) {
   // make the call to the api
-  const response = yield call(api.getprofile, data)
-
+  let token = yield select (getToken);
+  const fetchProfileURL = `${API_BASE}${MOBILE_PROFILE}`;
+  const fetchProfileCall = yield call(request, fetchUserURL, {
+    method: 'GET',
+    headers: {
+      Authorization:token
+    }
+  });
   // success?
-  if (response.ok) {
+  if (fetchProfileCall.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
-    yield put(ProfileActions.profileSuccess(response.data))
+    yield put(ProfileActions.profileSuccess(fetchProfileCall.data));
   } else {
-    yield put(ProfileActions.profileFailure())
+    yield put(ProfileActions.profileFailure());
   }
 }

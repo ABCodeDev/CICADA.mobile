@@ -4,9 +4,9 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  profileRequest: ['data'],
+  profileRequest: null,
   profileSuccess: ['payload'],
-  profileFailure: null
+  profileFailure: null,
 })
 
 export const ProfileTypes = Types
@@ -15,27 +15,26 @@ export default Creators
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  data: null,
   fetching: null,
-  payload: null,
-  error: null
+  profile: null,
+  error: null,
 })
 
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, { data }) =>
-  state.merge({ fetching: true, data, payload: null })
+export const request = (state) =>
+  state.merge({ fetching: true})
 
 // successful api lookup
 export const success = (state, action) => {
-  const { payload } = action
-  return state.merge({ fetching: false, error: null, payload })
+  const { profile } = action
+  return state.merge({ fetching: false, error: null, profile })
 }
 
 // Something went wrong somewhere.
 export const failure = state =>
-  state.merge({ fetching: false, error: true, payload: null })
+  state.merge({ fetching: false, error: true})
 
 /* ------------- Hookup Reducers To Types ------------- */
 

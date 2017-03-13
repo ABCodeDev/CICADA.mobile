@@ -1,3 +1,10 @@
 /**
  * Created by Aufa HR on 13/03/2017.
  */
+export const API_BASE = 'http://192.168.88.4:8000/api/v1/';
+export const API_USER_PROFILE = 'user-profile/';
+
+export const API_AUTH = 'rest-auth/';
+export const API_AUTH_LOGIN = 'rest-auth/login/';
+export const API_AUTH_USER = 'rest-auth/user/';
+export const API_AUTH_REGISTRATION = 'rest-auth/registration/'

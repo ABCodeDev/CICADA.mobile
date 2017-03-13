@@ -13,6 +13,7 @@ import { connect } from 'react-redux'
 import Styles from './Styles/LoginScreenStyles'
 import {Images, Metrics} from '../Themes'
 import LoginActions from '../Redux/LoginRedux'
+import { Actions } from 'react-native-router-flux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
 class LoginScreen extends React.Component {
@@ -30,8 +31,8 @@ class LoginScreen extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      username: 'reactnative@infinite.red',
-      password: 'password',
+      username: '',
+      password: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
     }
@@ -86,17 +87,28 @@ class LoginScreen extends React.Component {
 
   handleChangeUsername = (text) => {
     this.setState({ username: text })
-  }
+  };
 
   handleChangePassword = (text) => {
     this.setState({ password: text })
-  }
+  };
 
   render () {
-    const { username, password } = this.state
-    const { fetching } = this.props
-    const editable = !fetching
-    const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
+    const { username, password } = this.state;
+    const { fetching } = this.props;
+    const editable = !fetching;
+    const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly;
+    const {loggedIn} = this.props;
+
+    console.log(loggedIn);
+    console.log(fetching);
+
+    if(loggedIn){
+      console.log("Login lhooo");
+      console.log(Actions);
+      Actions.FeedScreen({type:"reset"});
+    }
+
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps='always'>
         <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
@@ -158,7 +170,8 @@ class LoginScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    fetching: state.login.fetching
+    fetching: state.login.fetching,
+    loggedIn : state.login.loggedIn,
   }
 }
 
