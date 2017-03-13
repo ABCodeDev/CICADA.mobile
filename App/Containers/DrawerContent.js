@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { ScrollView, Image, BackAndroid } from 'react-native'
 import styles from './Styles/DrawerContentStyles'
 import { Images } from '../Themes'
+import DrawerButton from '../Components/DrawerButton'
+import { Actions } from 'react-native-router-flux'
 
 class DrawerContent extends Component {
 
@@ -19,10 +21,25 @@ class DrawerContent extends Component {
     this.context.drawer.toggle()
   }
 
+  logOut(){
+    console.log("Log Out!");
+  }
+
+  goToFeed(){
+    Actions.FeedScreen({type:"replace"});
+  }
+
+  goToProfile(){
+    Actions.ProfileScreen({type:"replace"});
+  }
+
   render () {
     return (
       <ScrollView style={styles.container}>
         <Image source={Images.logo} style={styles.logo} />
+        <DrawerButton onPress={this.goToProfile()} text="Profile"/>
+        <DrawerButton onPress={this.goToFeed()} text="Feed"/>
+        <DrawerButton onPress={this.logOut()} text="Log Out"/>
       </ScrollView>
     )
   }

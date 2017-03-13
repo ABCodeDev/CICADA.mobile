@@ -6,8 +6,8 @@ export default class FeedItem extends React.Component {
 
   renderComponentThumbnail(components) {
     if (components.length > 0) {
-      return components.map((article, index) => (
-          <ComponentThumbnail key={index} article={article} />
+      return components.map((component, index) => (
+          <ComponentThumbnail key={index} componentItem={component} />
       ));
     }
     else return [];
@@ -17,12 +17,17 @@ export default class FeedItem extends React.Component {
 
     const notification = this.props.Notification;
     const notificationComponent = notification.components;
-
+    const renderedComponentThumbnails = renderComponentThumbnail(notificationComponent);
 
 
     return (
       <View style={styles.container}>
-        <Text>FeedItem Component</Text>
+        <Text>{notification.created_at}</Text>
+        <Text>{notification.title}</Text>
+        <Text>{notification.description}</Text>
+        <View>
+          {renderedComponentThumbnails}
+        </View>
       </View>
     )
   }

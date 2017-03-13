@@ -13,11 +13,12 @@
 import { call, put,select } from 'redux-saga/effects'
 import ProfileActions from '../Redux/ProfileRedux'
 import { getToken } from '../Redux/LoginRedux'
+import { API_BASE, API_MOBILE, API_MOBILE_PROFILE } from '../Config/AppConstants'
 
 export function * getProfile (action) {
   // make the call to the api
   let token = yield select (getToken);
-  const fetchProfileURL = `${API_BASE}${MOBILE_PROFILE}`;
+  const fetchProfileURL = `${API_BASE}${API_MOBILE_PROFILE}`;
   const fetchProfileCall = yield call(request, fetchUserURL, {
     method: 'GET',
     headers: {
@@ -25,9 +26,7 @@ export function * getProfile (action) {
     }
   });
   // success?
-  if (fetchProfileCall.ok) {
-    // You might need to change the response here - do this with a 'transform',
-    // located in ../Transforms/. Otherwise, just pass the data back from the api.
+  if (!fetchProfileCall.err) {
     yield put(ProfileActions.profileSuccess(fetchProfileCall.data));
   } else {
     yield put(ProfileActions.profileFailure());
