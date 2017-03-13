@@ -23,6 +23,7 @@ class DrawerContent extends Component {
 
   logOut(){
     console.log("Log Out!");
+    Actions.loginScreen({type:"reset"});
   }
 
   goToFeed(){
@@ -37,9 +38,9 @@ class DrawerContent extends Component {
     return (
       <ScrollView style={styles.container}>
         <Image source={Images.logo} style={styles.logo} />
-        <DrawerButton onPress={this.goToProfile()} text="Profile"/>
-        <DrawerButton onPress={this.goToFeed()} text="Feed"/>
-        <DrawerButton onPress={this.logOut()} text="Log Out"/>
+        <DrawerButton onPress={this.goToProfile} text="Profile"/>
+        <DrawerButton onPress={this.goToFeed} text="Feed"/>
+        <DrawerButton onPress={this.logOut} text="Log Out"/>
       </ScrollView>
     )
   }
