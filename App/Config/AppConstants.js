@@ -5,7 +5,7 @@ export const API_BASE = 'http://192.168.88.4:8000/api/v1/';
 
 
 export const API_MOBILE = 'mobile/';
-export const API_MOBILE_PROFILE = 'mobile/profile/';
+export const API_MOBILE_PROFILE = 'mobile/user/';
 export const API_MOBILE_NOTIFICATION = 'mobile/notification/';
 export const API_MOBILE_RESPONSE = 'mobile/response/';
 

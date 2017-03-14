@@ -20,7 +20,7 @@ class ProfileScreen extends React.Component {
 
   renderProfile(profile) {
     if(profile !=null) {
-
+      return [];
     }
     else return [];
   }
@@ -32,6 +32,8 @@ class ProfileScreen extends React.Component {
 
     return (
       <ScrollView>
+        <View style={styles.navbarPad}>
+        </View>
         <KeyboardAvoidingView behavior='position'>
           <Text>ProfileScreen Container</Text>
           {profileFeed}
@@ -44,7 +46,7 @@ class ProfileScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    profile: state.profile.profile,
+    profile: state,
   }
 }
 

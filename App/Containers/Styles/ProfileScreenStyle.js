@@ -11,5 +11,10 @@ export default StyleSheet.create({
   },
   centered: {
     alignItems: 'center'
+  },
+  navbarPad: {
+    width: Metrics.screenWidth,
+    height: Metrics.navBarHeight,
+    backgroundColor:Colors.background
   }
 })

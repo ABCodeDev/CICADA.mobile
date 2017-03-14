@@ -18,6 +18,7 @@ export function * getProfile (action) {
     }
   });
   // success?
+
   if (!fetchProfileCall.err) {
     yield put(ProfileActions.profileSuccess(fetchProfileCall.data));
   } else {
