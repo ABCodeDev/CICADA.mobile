@@ -1,7 +1,8 @@
-import { takeLatest } from 'redux-saga/effects'
+import { takeLatest, fork,put } from 'redux-saga/effects'
 import API from '../Services/Api'
 import FixtureAPI from '../Services/FixtureApi'
 import DebugConfig from '../Config/DebugConfig'
+import FeedActions  from '../Redux/FeedRedux'
 
 /* ------------- Types ------------- */
 
@@ -10,6 +11,7 @@ import { GithubTypes } from '../Redux/GithubRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
 import { FeedTypes } from '../Redux/FeedRedux'
 import { OpenScreenTypes } from '../Redux/OpenScreenRedux'
+import { watchFeedReceive } from './FeedReceiveSagas'
 
 /* ------------- Sagas ------------- */
 
@@ -32,10 +34,8 @@ export default function * root () {
     // some sagas only receive an action
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(LoginTypes.LOGIN_REQUEST, login),
-    takeLatest(FeedTypes.FEED_FETCH_REQUEST, getFeedReceive),
     takeLatest(OpenScreenTypes.OPEN_SCREEN, openScreen),
-
-    // some sagas receive extra parameters in addition to an action
-    takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api)
+    fork (watchFeedReceive),
+    put(FeedActions.feedFetchSuccess({}))
   ]
 }

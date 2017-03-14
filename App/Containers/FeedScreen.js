@@ -38,16 +38,13 @@ class FeedScreen extends React.Component {
 
 
   render () {
-    var _scrollToBottomY = 0;
-    this.props.fetchFeed();
     const notifications = this.props.notifications;
     console.log(notifications);
     const notificationsFeed =  this.renderFeeds(notifications);
 
 
     return (
-
-      <ScrollView ref="scrollView" style={styles.container} onContentSizeChange={(contentWidth, contentHeight)=>{_scrollToBottomY = contentHeight; this.refs.scrollView.scrollTo(_scrollToBottomY); }}>
+      <ScrollView style={styles.container}>
         <View style={styles.navbarPad}>
         </View>
         <KeyboardAvoidingView behavior='position'>

@@ -15,13 +15,14 @@ import {Images, Metrics} from '../Themes'
 import LoginActions from '../Redux/LoginRedux'
 import { Actions } from 'react-native-router-flux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
-
+import FeedActions from '../Redux/FeedRedux'
 class LoginScreen extends React.Component {
 
   static propTypes = {
     dispatch: PropTypes.func,
     fetching: PropTypes.bool,
-    attemptLogin: PropTypes.func
+    attemptLogin: PropTypes.func,
+    startPolling:PropTypes.func
   }
 
   isAttempting = false
@@ -36,7 +37,8 @@ class LoginScreen extends React.Component {
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
     }
-    this.isAttempting = false
+    this.isAttempting = false;
+
   }
 
   componentWillReceiveProps (newProps) {
@@ -106,6 +108,7 @@ class LoginScreen extends React.Component {
     if(loggedIn){
       console.log("Login lhooo");
       console.log(Actions);
+      this.props.startPolling();
       Actions.FeedScreen({type:"reset"});
     }
 
@@ -177,7 +180,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (username, password) => dispatch(LoginActions.loginRequest(username, password))
+    attemptLogin: (username, password) => dispatch(LoginActions.loginRequest(username, password)),
+    startPolling: ()=>dispatch(FeedActions.feedFetchSuccess({}))
   }
 }
 

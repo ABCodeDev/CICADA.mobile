@@ -30,11 +30,10 @@ export default class ComponentThumbnails extends React.Component {
   }
 }
 
-// // Prop type warnings
-// ComponentThumbnails.propTypes = {
-//   someProperty: React.PropTypes.object,
-//   someSetting: React.PropTypes.bool.isRequired
-// }
+// Prop type warnings
+ComponentThumbnails.propTypes = {
+  component:React.PropTypes.obj
+}
 //
 // // Defaults for props
 // ComponentThumbnails.defaultProps = {
