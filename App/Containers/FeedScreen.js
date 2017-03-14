@@ -1,5 +1,5 @@
 import React from 'react'
-import { View,ScrollView, Text, KeyboardAvoidingView } from 'react-native'
+import { View,ScrollView, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import FeedActions from '../Redux/FeedRedux'
 import { Container } from 'native-base'
@@ -10,6 +10,7 @@ import { Metrics } from '../Themes'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Animatable from 'react-native-animatable'
 import { Actions as NavigationActions } from 'react-native-router-flux'
+import { Text } from 'native-base'
 
 import FeedItem from '../Components/FeedItem'
 
@@ -29,7 +30,7 @@ class FeedScreen extends React.Component {
     if(notifications !=null) {
       if (notifications.length > 0) {
         return notifications.map((notification, index) => (
-            <FeedItem key={index} Notification={notification}/>
+          <FeedItem key={index} Notification={notification}/>
         ));
       }else return [];
     }
@@ -44,11 +45,11 @@ class FeedScreen extends React.Component {
 
 
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView>
         <View style={styles.navbarPad}>
         </View>
         <KeyboardAvoidingView behavior='position'>
-            {notificationsFeed}
+          {notificationsFeed}
         </KeyboardAvoidingView>
       </ScrollView>
     )

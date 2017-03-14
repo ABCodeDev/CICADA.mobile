@@ -1,6 +1,7 @@
 import React from 'react'
 import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
+import ProfileActions from '../Redux/ProfileRedux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 import { Metrics } from '../Themes'
@@ -17,11 +18,23 @@ import I18n from 'react-native-i18n'
 
 class ProfileScreen extends React.Component {
 
+  renderProfile(profile) {
+    if(profile !=null) {
+
+    }
+    else return [];
+  }
+
   render () {
+    const profile = this.props.profile;
+    console.log(profile);
+    const profileFeed = this.renderProfile(profile);
+
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView>
         <KeyboardAvoidingView behavior='position'>
           <Text>ProfileScreen Container</Text>
+          {profileFeed}
         </KeyboardAvoidingView>
       </ScrollView>
     )
@@ -37,7 +50,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    fetchProfile: () => dispatch(ProfileActions.profileRequest())
   }
+}
+
+this.propTypes = {
+  fetchProfile : React.PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen)

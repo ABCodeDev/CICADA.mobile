@@ -16,6 +16,7 @@ import LoginActions from '../Redux/LoginRedux'
 import { Actions } from 'react-native-router-flux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 import FeedActions from '../Redux/FeedRedux'
+import ProfileActions from '../Redux/ProfileRedux'
 class LoginScreen extends React.Component {
 
   static propTypes = {
@@ -108,7 +109,7 @@ class LoginScreen extends React.Component {
     if(loggedIn){
       console.log("Login lhooo");
       console.log(Actions);
-      this.props.startPolling();
+      this.props.fetchProfile();
       Actions.FeedScreen({type:"reset"});
     }
 
@@ -181,7 +182,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     attemptLogin: (username, password) => dispatch(LoginActions.loginRequest(username, password)),
-    startPolling: ()=>dispatch(FeedActions.feedFetchSuccess({}))
+    fetchProfile: ()=> dispatch(ProfileActions.profileRequest()),
   }
 }
 

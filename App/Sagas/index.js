@@ -11,6 +11,7 @@ import { GithubTypes } from '../Redux/GithubRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
 import { FeedTypes } from '../Redux/FeedRedux'
 import { OpenScreenTypes } from '../Redux/OpenScreenRedux'
+import { ProfileTypes } from '../Redux/ProfileRedux'
 import { watchFeedReceive } from './FeedReceiveSagas'
 
 /* ------------- Sagas ------------- */
@@ -20,7 +21,7 @@ import { login } from './LoginSagas'
 import { getFeedReceive } from './FeedReceiveSagas'
 import { getUserAvatar } from './GithubSagas'
 import { openScreen } from './OpenScreenSagas'
-
+import { getProfile } from './ProfileSagas'
 /* ------------- API ------------- */
 
 // The API we use is only used from Sagas, so we create it here and pass along
@@ -35,7 +36,7 @@ export default function * root () {
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(LoginTypes.LOGIN_REQUEST, login),
     takeLatest(OpenScreenTypes.OPEN_SCREEN, openScreen),
+    takeLatest(ProfileTypes.PROFILE_REQUEST, getProfile),
     fork (watchFeedReceive),
-    put(FeedActions.feedFetchSuccess({}))
   ]
 }
