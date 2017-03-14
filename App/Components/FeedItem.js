@@ -1,6 +1,8 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import styles from './Styles/FeedItemStyle'
+import { CardItem, Card } from 'native-base'
+import ComponentThumbnail from '../Components/ComponentThumbnail'
 
 export default class FeedItem extends React.Component {
 
@@ -15,27 +17,45 @@ export default class FeedItem extends React.Component {
 
   render () {
 
+
     const notification = this.props.Notification;
-    const notificationComponent = notification.components;
-    const renderedComponentThumbnails = renderComponentThumbnail(notificationComponent);
+    notification.created = (String(notification.created)).substring(19);
+
+    let renderedComponentThumbnails = <Text></Text>;
+
+    // if(notification.components != null & notification.components.length > 0){
+    //   const notificationComponent = notification.components;
+    //   renderedComponentThumbnails = this.renderComponentThumbnail(notificationComponent);
+    // }else{
+    //
+    // }
 
 
     return (
-      <View style={styles.container}>
-        <Text>{notification.created_at}</Text>
-        <Text>{notification.title}</Text>
-        <Text>{notification.description}</Text>
-        <View>
-          {renderedComponentThumbnails}
+      <View style={{padding:5, paddingBottom:0}}>
+      <Card>
+        <CardItem bordered header>
+          <Text>{notification.title}</Text>
+        </CardItem>
+        <CardItem>
+          <Text>{notification.description}</Text>
+        </CardItem>
+        <CardItem>
+        {/*{renderedComponentThumbnails}*/}
+      </CardItem>
+        <CardItem/>
+        <CardItem>
+          <Text style={{textAlign:'right'}} note>{notification.created} </Text>
+        </CardItem>
+      </Card>
         </View>
-      </View>
     )
   }
 }
 
 //Prop type warnings
 FeedItem.propTypes = {
-  Notification: React.PropTypes.obj
+  Notification: React.PropTypes.object
 }
 //
 // // Defaults for props

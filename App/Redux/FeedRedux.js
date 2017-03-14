@@ -36,7 +36,7 @@ export const srequest = (state) =>
 // successful api lookup
 export const success = (state, action) => {
   const { notifications } = action;
-  return state.merge({ fetching: false, error: null, notifications })
+  return state.merge({ fetching: false, error: null}).set('notifications',notifications)
 }
 
 // Something went wrong somewhere.

@@ -1,25 +1,38 @@
-import { getToken } from '../Redux/LoginRedux';
 
+import request from './request'
 import { call, put,select } from 'redux-saga/effects'
 import FeedActions from '../Redux/FeedRedux'
 import { API_BASE, API_MOBILE_NOTIFICATION } from '../Config/AppConstants'
 
-export function * getFeedReceive () {
+const getToken = (state) => state.login.token
+
+function delay(millis) {
+  const promise = new Promise(resolve => {
+    setTimeout(() => resolve(true), millis)
+  });
+  return promise;
+}
+
+export function * getFeedReceive (action) {
+
   // make the call to the api
   const requestURL = `${API_BASE}${API_MOBILE_NOTIFICATION}`;
   let token = yield select(getToken);
-  console.log(token);
+  console.log("ini" + token);
 
   const FetchFeedCall = yield call(request, requestURL, {
     method: 'GET',
     headers: {
-      Authentication : token
+      Authorization : token
     }
   });
 
+
   // success?
   if (!FetchFeedCall.err) {
-    yield put(FeedActions.feedFetchSuccess(FeedFetchCall.data))
+    console.log("hallooooo");
+    console.log(FetchFeedCall.data);
+    yield put(FeedActions.feedFetchSuccess(FetchFeedCall.data))
   } else {
     yield put(FeedActions.feedFetchFailure())
   }

@@ -1,15 +1,21 @@
 import { StyleSheet } from 'react-native'
-import { Metrics, ApplicationStyles } from '../../Themes/'
+import { Colors,Metrics, ApplicationStyles } from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
-  logo: {
-    marginTop: Metrics.doubleSection,
-    height: Metrics.images.logo,
-    width: Metrics.images.logo,
-    resizeMode: 'contain'
-  },
   centered: {
     alignItems: 'center'
+  },
+  container2: {
+    flex: 1,
+    paddingTop: 0,
+    paddingLeft:5,
+    paddingRight:5,
+    backgroundColor: Colors.transparent
+  },
+  navbarPad: {
+    width: Metrics.screenWidth,
+    height: Metrics.navBarHeight,
+    backgroundColor:Colors.background
   }
-})
+});

@@ -1,7 +1,7 @@
 /**
  * Created by Aufa HR on 13/03/2017.
  */
-export const API_BASE = 'http://192.168.88.6:8000/api/v1/';
+export const API_BASE = 'http://192.168.88.4:8000/api/v1/';
 
 
 export const API_MOBILE = 'mobile/';

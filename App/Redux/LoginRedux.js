@@ -8,7 +8,7 @@ const { Types, Creators } = createActions({
   loginSuccess: ['token'],
   loginFailure: ['error'],
   logout: null
-})
+});
 
 export const LoginTypes = Types
 export default Creators
