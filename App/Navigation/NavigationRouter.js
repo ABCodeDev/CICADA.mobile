@@ -3,13 +3,15 @@ import { Scene, Router } from 'react-native-router-flux'
 import Styles from './Styles/NavigationContainerStyles'
 import NavigationDrawer from './NavigationDrawer'
 
+
 // screens identified by the router
 import LaunchScreen from '../Containers/LaunchScreen'
 
 import LoginScreen from '../Containers/LoginScreen'
 import FeedScreen from '../Containers/FeedScreen'
 import ProfileScreen from '../Containers/ProfileScreen'
-
+import FormViewScreen from '../Containers/FormViewScreen'
+import LogoutScreen from '../Containers/LogoutScreen'
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
 ***************************/
@@ -23,6 +25,8 @@ class NavigationRouter extends Component {
               <Scene initial key='loginScreen' component={LoginScreen} title='Login' hideNavBar />
               <Scene key='FeedScreen' component={FeedScreen} title='Feed' hideNavBar={false}/>
               <Scene key='ProfileScreen' component={ProfileScreen} title='Profile'hideNavBar={false}/>
+              <Scene key='FormViewScreen' component={FormViewScreen} title='Form'hideNavBar={false}/>
+              <Scene key='logout' component={LogoutScreen} title='Form'hideNavBar={true}/>
           </Scene>
         </Scene>
       </Router>

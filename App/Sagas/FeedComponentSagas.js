@@ -1,29 +1,36 @@
-/* ***********************************************************
-* A short word on how to use this automagically generated file.
-* We're often asked in the ignite gitter channel how to connect
-* to a to a third party api, so we thought we'd demonstrate - but
-* you should know you can use sagas for other flow control too.
-*
-* Other points:
-*  - You'll need to add this saga to sagas/index.js
-*  - This template uses the api declared in sagas/index.js, so
-*    you'll need to define a constant in that file.
-*************************************************************/
-
-import { call, put } from 'redux-saga/effects'
+import request from './request'
+import { call, put,select } from 'redux-saga/effects'
 import FeedComponentActions from '../Redux/FeedComponentRedux'
+import { API_BASE, API_COMPONENT} from '../Config/AppConstants'
 
-export function * getFeedComponent (api, action) {
-  const { data } = action
+const getToken = (state) => state.login.token;
+
+export function * getFeedComponent (action) {
   // make the call to the api
-  const response = yield call(api.getfeedComponent, data)
+  let obj  = {
+    component_id:action.cid,
+    notification_id:action.nid
+  }
 
+  console.log(JSON.stringify(obj));
+  let token = yield select (getToken);
+  const fetchComponentURL = `${API_BASE}global_data/`;
+  console.log(fetchComponentURL);
+  const fetchComponentCall = yield call(request, fetchComponentURL, {
+    method: 'POST',
+    headers: {
+      Authorization:token
+    },
+    body:JSON.stringify(obj)
+  });
+
+  console.log(fetchComponentCall.data);
   // success?
-  if (response.ok) {
-    // You might need to change the response here - do this with a 'transform',
-    // located in ../Transforms/. Otherwise, just pass the data back from the api.
-    yield put(FeedComponentActions.feedComponentSuccess(response.data))
+  if (!fetchComponentCall.err) {
+    console.log("fetch component success");
+    yield put(FeedComponentActions.feedComponentSuccess())
   } else {
+    console.log("fetch component failed");
     yield put(FeedComponentActions.feedComponentFailure())
   }
 }

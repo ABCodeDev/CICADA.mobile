@@ -9,6 +9,8 @@ import { Metrics } from '../Themes'
 // external libs
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Animatable from 'react-native-animatable'
+import { Actions } from 'react-native-router-flux'
+import FeedComponentActions from '../Redux/FeedComponentRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 import { Text } from 'native-base'
 
@@ -22,15 +24,21 @@ import I18n from 'react-native-i18n'
 
 class FeedScreen extends React.Component {
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
+    this.handleNotificationComponentPress = this.handleNotificationComponentPress.bind(this);
+  }
+
+  handleNotificationComponentPress(nid,cid){
+    Actions.FormViewScreen({nid:nid,cid:cid});
+    this.props.fetchComponent(cid,nid);
   }
 
   renderFeeds(notifications) {
     if(notifications !=null) {
       if (notifications.length > 0) {
         return notifications.map((notification, index) => (
-          <FeedItem key={index} Notification={notification}/>
+          <FeedItem key={index} Notification={notification} handleNotificationComponentPress={this.handleNotificationComponentPress}/>
         ));
       }else return [];
     }
@@ -65,7 +73,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchFeed: () => dispatch(FeedActions.feedFetchRequest())
+    fetchFeed: () => dispatch(FeedActions.feedFetchRequest()),
+    fetchComponent: (cid,nid)=> dispatch(FeedComponentActions.feedComponentRequest(cid,nid)),
   }
 }
 

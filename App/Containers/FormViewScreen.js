@@ -1,8 +1,9 @@
 import React from 'react'
-import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
+import { ScrollView, Text, KeyboardAvoidingView,View } from 'react-native'
 import { connect } from 'react-redux'
+import { WebView } from 'react-native';
 // Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import FeedComponentActions from '../Redux/FeedComponentRedux'
 import { Metrics } from '../Themes'
 // external libs
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -17,26 +18,36 @@ import I18n from 'react-native-i18n'
 
 class FormViewScreen extends React.Component {
 
+  constructor(props){
+    super(props);
+  }
+
+
+
   render () {
-    return (
-      <ScrollView style={styles.container}>
-        <KeyboardAvoidingView behavior='position'>
-          <Text>FormView Container</Text>
-        </KeyboardAvoidingView>
-      </ScrollView>
-    )
+      return (
+        <WebView
+            source={{uri: 'http://192.168.43.84:3000/SecretForm'}}
+            style={{marginTop:50}}
+        />
+      )
   }
 
 }
 
 const mapStateToProps = (state) => {
   return {
+    viewComponent:state.viewComponent.component
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
   }
+}
+
+this.propTypes = {
+  viewComponent:React.PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormViewScreen)

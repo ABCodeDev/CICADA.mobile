@@ -4,8 +4,8 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  feedComponentRequest: ['data'],
-  feedComponentSuccess: ['payload'],
+  feedComponentRequest: ['cid','nid'],
+  feedComponentSuccess: ['component'],
   feedComponentFailure: null
 })
 
@@ -17,25 +17,27 @@ export default Creators
 export const INITIAL_STATE = Immutable({
   data: null,
   fetching: null,
-  payload: null,
+  component: null,
   error: null
 })
 
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, { data }) =>
-  state.merge({ fetching: true, data, payload: null })
+export const request = (state) =>
+  state.merge({ fetching: true, payload: null })
 
 // successful api lookup
 export const success = (state, action) => {
-  const { payload } = action
-  return state.merge({ fetching: false, error: null, payload })
+  const { component } = action
+  console.log("fetch component");
+  console.log(component);
+  return state.merge({ fetching: false, error: null}).set('component',component);
 }
 
 // Something went wrong somewhere.
 export const failure = state =>
-  state.merge({ fetching: false, error: true, payload: null })
+  state.merge({ fetching: false, error: true, component: null })
 
 /* ------------- Hookup Reducers To Types ------------- */
 

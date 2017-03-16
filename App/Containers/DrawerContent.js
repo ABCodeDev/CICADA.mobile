@@ -23,7 +23,7 @@ class DrawerContent extends Component {
 
   logOut(){
     console.log("Log Out!");
-    Actions.loginScreen({type:"reset"});
+    Actions.logout({type:"reset"});
   }
 
   goToFeed(){

@@ -9,8 +9,9 @@ export default () => {
     login: require('./LoginRedux').reducer,
     profile: require('./ProfileRedux').reducer,
     feed: require('./FeedRedux').reducer,
-    search: require('./SearchRedux').reducer
-  })
+    search: require('./SearchRedux').reducer,
+    viewComponent: require('./FeedComponentRedux').reducer,
+  });
 
   return configureStore(rootReducer, rootSaga)
 }
